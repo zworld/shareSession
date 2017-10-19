@@ -14,9 +14,10 @@
     },
     methods: {},
     created() {
-
     },
     mounted() {
+      var vm = this;
+
     }
   }
 </script>

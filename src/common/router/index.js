@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import index_page from 'page/index'
 import login_page from 'page/login'
-import store from '@/vuex'
+import store from 'common/vuex'
 Vue.use(Router)
 var router =  new Router({
   routes: [
@@ -23,11 +23,12 @@ var router =  new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  Vue.stopHttps()
   let needAuth = to.meta.requiresAuth;
   let isLogin = store.state.user.isLogin;
   let pathName = to.name;
   if(needAuth){
-    if(isLogin || pathName=='login'){
+    if(isLogin){
       next()
     }else{
       next('/login')

@@ -2,10 +2,15 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
-import store from  '@/vuex'
+import router from 'common/router'
+import store from  'common/vuex'
 import { initUser } from 'util/user'
-import { sessionItem } from 'util/session'
+import domain from 'util/domain'
+import http from 'util/http'
+
+//使用插件
+Vue.use(domain)
+Vue.use(http)
 
 Vue.config.productionTip = false
 initUser()
