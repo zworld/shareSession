@@ -7,8 +7,10 @@ import store from  'common/vuex'
 import { initUser } from 'util/user'
 import domain from 'util/domain'
 import http from 'util/http'
+import extend from 'util/extend'
 
 //使用插件
+Vue.use(extend)
 Vue.use(domain)
 Vue.use(http)
 

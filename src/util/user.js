@@ -1,6 +1,6 @@
 import store from 'common/vuex'
-import {sessionItem} from './session'
-import {storageItem} from './storage'
+import {updateSession} from 'util/session'
+import { setLsItem, getLsItem, rmLsItem} from 'util/storage'
 //初始化用户,把用户信息赋值给vuex user
 const initUser = function () {
 
@@ -8,46 +8,60 @@ const initUser = function () {
     // Ask other tabs for session storage
     localStorage.setItem('getSessionStorage', Date.now());
   }else{
-    //用户赋值
-    store.commit('UPDATE_USER', data)
+    //本地赋值
+    store.dispatch('update', sessionStorage)
   };
 
   window.addEventListener('storage', function(event) {
 
-    if (event.key == 'getSessionStorage') {
+    //传递值处理
+    var data = DM.isJson(event.newValue) ? JSON.parse(event.newValue) : event.newValue;
+
+    if (event.key == 'getSessionStorage') {data
       // Some tab asked for the sessionStorage -> send it
+      dispatchSession()
 
-      console.info(JSON.stringify(sessionStorage),123123);
+    } else if ((event.key === 'sessionStorage' && !Object.is(null,) &&!sessionStorage.length)) {
 
-      localStorage.setItem('sessionStorage', JSON.stringify(sessionStorage));
-      localStorage.removeItem('sessionStorage');
+      if(DM.getObjLen(data) === 0) return
 
-    } else if (event.key == 'sessionStorage' && !sessionStorage.length) {
+      updateUser()
 
-      var data = JSON.parse(event.newValue);
-
-      for (var key in data) {
-        sessionStorage.setItem(key, data[key]);
+    }else if(event.key === 'updateStorage'){
+      if(typeof data === 'object'){
+        //更新用户
+        updateUser()
       }
-      //用户赋值
-      store.commit('UPDATE_USER', data)
     }
   });
 
+}
 
-  // if (sessionItem('user')) {
-  //   var userInfo = JSON.parse(sessionItem('user'))
-  //   store.commit('UPDATE_USER', userInfo)
-  // }
+//获取用户信息
+const getUserInfo = function(){
+  return store.state.user.userInfo || {}
 }
-//更新用户 把用户信息同步更新到session和localStorage
+//更新用户
 const updateUser = function (userInfo) {
-  var newInfo = typeof userInfo === 'string' ? userInfo : JSON.stringify(userInfo)
-  sessionItem('user', newInfo)
-  storageItem('user', newInfo)
+  //更新sessionStorage,本地赋值
+  updateSession(data)
+  store.dispatch('update', data)
 }
+//同步传递session
+const dispatchSession = function(){
+  setLsItem('sessionStorage', sessionStorage);
+  rmLsItem('sessionStorage');
+}
+
+//传递用户更新信息
+const dispatchUserInfo = function(){
+  setLsItem('updateStorage', sessionStorage)
+  setLsItem('updateStorage',Date.now())
+}
+
 export  {
   initUser,
-  updateUser
+  updateUser,
+  dispatchUserInfo
 }
 
