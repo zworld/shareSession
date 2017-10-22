@@ -2,13 +2,13 @@
   <nav>
     <span href="javascript:void(0);" class="menu_toggle"  @click="toggleMenu"><i class="el-icon-more"></i></span>
     <el-menu
-      default-active="1-4-1"
       theme="dark"
       class="menu"
+      :router="true"
       :collapse= "memuIn"
       @open="handleOpen"
       @close="handleClose">
-      <el-submenu index="1">
+      <el-submenu index="/">
         <template slot="title">
           <i class="el-icon-message"></i>
           <span slot="title">导航一</span>
@@ -43,8 +43,7 @@
   }
 </style>
 <style lang="less" scoped>
-  @import "../../assets/css/theme";
-  @import "../../assets/css/lib";
+  @import "../../../assets/css/lib";
   nav{
     display: inline-block;
     background: @theme-menu;
@@ -67,6 +66,8 @@
     methods: {
       toggleMenu() {
         //全局设置menu状态
+        var vm = this;
+        this.$emit('collapse-change', vm.memuIn)
         this.$store.commit('MENU_TOGGLE')
       },
       handleOpen(key, keyPath) {

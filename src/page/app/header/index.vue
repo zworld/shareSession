@@ -2,7 +2,7 @@
   <header></header>
 </template>
 <style lang="less" scoped>
-  @import "../../assets/css/theme.less";
+  @import "../../../assets/css/theme.less";
   header {
     position: fixed;
     height: 50px;
