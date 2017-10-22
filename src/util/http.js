@@ -2,7 +2,9 @@ import axios from 'axios'
 import config from "./config"
 let xhrList = [];
 
-exports.install = function (Vue) {
+let lib = {}
+
+lib.install = function (Vue) {
 
   Vue.prototype.$http = function (options) {
     let vm = this;
@@ -82,3 +84,5 @@ exports.install = function (Vue) {
     }
   }
 }
+
+export default lib

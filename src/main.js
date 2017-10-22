@@ -8,20 +8,30 @@ import { initUser } from 'util/user'
 import domain from 'util/domain'
 import http from 'util/http'
 import extend from 'util/extend'
+import {sync} from 'vuex-router-sync'
+
+/*
+按需求引入element组件
+col,row
+ */
+import needElComponents from 'components/element'
+
+import 'assets/css/common'
 
 //使用插件
+Vue.use(needElComponents)
 Vue.use(extend)
 Vue.use(domain)
 Vue.use(http)
 
+//同步store和router状态，layout布局
+sync(store, router)
+
 Vue.config.productionTip = false
+
+//初始化用户信息，同步session和vuex user,并且添加storage相关事件
 initUser()
 
-window.addEventListener('storage',function(e){
-  if(e.key == 'user'){
-    initUser()
-  }
-})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -1,10 +1,7 @@
 <template>
   <div>
-    name: <input type="text" v-model="name">
-    <a href="javascript:void(0)" @click="login">确认</a>
-    <router-link :to="{name: 'index'}">index</router-link>
-  </div>
 
+  </div>
 </template>
 
 <style lang="less" scoped>

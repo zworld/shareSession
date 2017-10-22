@@ -1,7 +1,5 @@
 <template>
   <div>
-    进入首页
-    <router-link :to="{name: 'login'}">login</router-link>
   </div>
 </template>
 
@@ -9,15 +7,16 @@
 </style>
 <script>
   export default {
+    name: 'index',
     data() {
-      return {}
+      return {
+      }
     },
     methods: {},
     created() {
     },
     mounted() {
       var vm = this;
-
     }
   }
 </script>

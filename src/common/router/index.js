@@ -11,13 +11,19 @@ var router =  new Router({
       name: 'index',
       component: index_page,
       meta: {
-        requiresAuth: true
+        // requiresAuth: true
       }
     },
     {
       path: '/login',
       name: 'login',
-      component: login_page
+      component: login_page,
+      meta: {
+        // requiresAuth: true
+        menuIn: true,
+        noMenu:true,
+        noHeader:true
+      }
     }
   ]
 })

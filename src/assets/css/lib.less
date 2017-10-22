@@ -1,0 +1,40 @@
+@import "./theme.less";
+/*
+通用的样式方法
+ */
+//全局定位
+.pos(r){
+  position: relative;
+}
+.pos(a){
+  position: absolute;
+}
+.pos(f){
+  position: fixed;
+}
+.pos(s){
+  position: static;
+}
+
+//全屏
+.allScreen(@pos:a, @px:0){
+  .pos(@pos);
+  top: @px;
+  left: @px;
+  right: @px;
+  bottom: @px;
+}
+
+//Css3 前缀
+.pre(@style, @value){
+    @{style}: @value;
+}
+
+//transition
+.transition(@trans: all 0.2s ease) {
+  .pre(transition, @trans);
+}
+
+/*
+页面具体公用的样式
+ */

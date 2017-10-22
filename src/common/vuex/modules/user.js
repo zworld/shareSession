@@ -6,6 +6,7 @@ const state = {
 }
 const getters = {}
 const mutations = {
+
   //更新用户信息
   [types.UPDATE_USER]: function (state, userInfo) {
     for(var key in userInfo){
@@ -13,10 +14,12 @@ const mutations = {
       state[key] = DM.isJson(value) ? JSON.parse(value) : value
     }
   },
+
   //改变登录状态
   [types.CHANGE_LOGIN]: function (state, loginState) {
     state.isLogin = loginState || false
   },
+
   //重置用户信息
   [types.REST_USER]: function(state){
     state.isLogin = false;
