@@ -1,4 +1,4 @@
-<template v-if="show">
+<template>
   <div class="z_crumb">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item v-for="(crumb,index) in crumbList" :to=crumb.to :key="index">{{ crumb.label }}
@@ -6,11 +6,28 @@
     </el-breadcrumb>
   </div>
 </template>
-
 <style lang="less" scoped>
 </style>
 <script>
   export default {
+    props: {
+      crumbList: {
+        /*
+         example: [
+          {
+            label: '首页',
+            to: {
+              path: '/'
+            }
+          }
+         ]
+         */
+        type: Array,
+        default:function(){
+          return []
+        }
+      }
+    },
     data() {
       return {
         crumbListMap: {
@@ -44,12 +61,6 @@
     mounted() {
     },
     computed: {
-      crumbList: function () {
-        return this.crumbListMap[this.$route.path]
-      },
-      show: function(){
-        return this.crumbList.length === 0 ? false : true
-      }
     }
   }
 </script>

@@ -10,9 +10,13 @@ import http from 'util/http'
 import extend from 'util/extend'
 import {sync} from 'vuex-router-sync'
 
+//lodash
+require(['lodash/core'],function (lodash) {
+  window._ = lodash
+});
+
 /*
 按需求引入element组件
-col,row
  */
 import needElComponents from 'components/element'
 

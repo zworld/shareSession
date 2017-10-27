@@ -4,11 +4,11 @@
     <z-header v-if="!noHeader"></z-header>
     <!--中间-->
     <section class="main">
-      <!--左边栏-->
+      <!--左边菜单栏-->
       <z-menu v-if="!noMenu" @collapse-change="addPageCollapse"></z-menu>
-      <!--右边内容区域-->
+      <!--右边内容区-->
       <section class="page_main" :class="{menu_in: menuIn,'page_collapse': pageCollapse}">
-      <!--页面路由-->
+      <!--路由-->
         <router-view/>
       </section>
     </section>
@@ -60,14 +60,12 @@
 <script>
   import menu from 'page/app/menu'
   import header from 'page/app/header'
-  import crumb from 'page/app/crumb'
   import {mapGetters} from 'vuex'
   export default {
     name: 'app',
     components: {
       'z-menu': menu,
       'z-header': header,
-      'z-crumb': crumb
     },
     data(){
       return {

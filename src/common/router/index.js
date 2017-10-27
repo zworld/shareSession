@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import index_page from 'page/index'
 import login_page from 'page/login'
+import event_page from 'page/event'
 import store from 'common/vuex'
 Vue.use(Router)
 var router =  new Router({
@@ -10,6 +11,14 @@ var router =  new Router({
       path: '/',
       name: 'index',
       component: index_page,
+      meta: {
+        // requiresAuth: true
+      }
+    },
+    {
+      path: '/event',
+      name: 'event',
+      component: event_page,
       meta: {
         // requiresAuth: true
       }
