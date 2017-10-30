@@ -25,9 +25,9 @@ import {
   // ButtonGroup,
   // Table,
   // TableColumn,
-  // DatePicker,
-  // TimeSelect,
-  // TimePicker,
+  DatePicker,
+  TimeSelect,
+  TimePicker,
   // Popover,
   Tooltip,
   Breadcrumb,
@@ -90,9 +90,9 @@ export default {
     // Vue.use(ButtonGroup)
     // Vue.use(Table)
     // Vue.use(TableColumn)
-    // Vue.use(DatePicker)
-    // Vue.use(TimeSelect)
-    // Vue.use(TimePicker)
+    Vue.use(DatePicker)
+    Vue.use(TimeSelect)
+    Vue.use(TimePicker)
     // Vue.use(Popover)
     Vue.use(Tooltip)
     Vue.use(Breadcrumb)

@@ -4,6 +4,7 @@
     <z-filter :immediacy="filter.immediacy"
               :filter-items="filter.filterItems"
               :area="filter.area"
+              :date="filter.date"
               @get-params="getParams"></z-filter>
   </section>
 </template>
@@ -22,8 +23,8 @@
     data() {
       var vm = this;
       return {
-        testVModel: [],
         filter: {
+          date:[new Date(),new Date],
           filterItems: {
             test: {
               name: 'name1',

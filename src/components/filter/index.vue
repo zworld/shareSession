@@ -31,13 +31,27 @@
       <z-city-select :area="area"
                      :init-province-list="initProvinceList"
                      @change="change" v-if="area"></z-city-select>
-
+    </div>
+    <div class="select_wrapper" v-if="date">
+      <span>时间范围</span>
+      <el-date-picker
+        v-model="dateList"
+        :clearable="false"
+        type="datetimerange"
+        :picker-options="dateOptions"
+        placeholder="选择时间范围"
+        @change="timeChange"
+        format="yyyy-MM-dd"
+        align="right">
+      </el-date-picker>
     </div>
     <slot></slot>
     <el-button v-if="!immediacy"
                type="primary"
                size="small"
                @click="pass()">确认
+
+
 
 
     </el-button>
@@ -73,14 +87,49 @@
       },
       initProvinceList: {
         type: Array,
-        default:function(){
+        default: function () {
           return []
         }
+      },
+      date: {
+        type: Array
       }
     },
     data() {
       var vm = this;
-      return {}
+      return {
+        //初始化参数
+        initParams: {},
+        //设置日期
+        dateList: [],
+        dateOptions: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        }
+      }
     },
     methods: {
       //向父组件传递参数
@@ -92,21 +141,11 @@
         if (this.immediacy) {
           this.pass()
         }
-      }
-    },
-    created() {
-    },
-    mounted() {
-    },
-    watch: {
-      'params': {
-        deep: true,
-        handler: function (val, oldVal) {
-        }
-      }
-    },
-    computed: {
-      params: function () {
+      },
+      timeChange(time){
+        console.log(time)
+      },
+      getParams(){
         let vm = this;
         let filter = vm.filterItems;
         let area = vm.area || {};
@@ -119,7 +158,32 @@
         for (let key in area) {
           result[key] = area[key]
         }
+        //时间参数
+        if(vm.date){
+          result.startTime = vm.dateList[0];
+          result.endTime = vm.dateList[1];
+        }
         return result
+      }
+    },
+    created() {
+      //处理时间参数
+      this.dateList = this.date ? this.date.slice() : []
+      //获取初始化参数
+      this.initParams = this.getParams()
+    },
+    mounted() {
+    },
+    watch: {
+      'params': {
+        deep: true,
+        handler: function (val, oldVal) {
+        }
+      }
+    },
+    computed: {
+      params: function () {
+        return this.getParams()
       }
     }
   }

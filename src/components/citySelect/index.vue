@@ -29,7 +29,6 @@
 
 <style lang="less">
   @import "../../assets/css/lib";
-
   .z_city_select {
     display: inline-block;
     .el-select {
@@ -183,6 +182,5 @@
         }
       }
     }
-
   }
 </script>
